@@ -24,7 +24,7 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: my_cashline_test
+          MYSQL_DATABASE: big
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -65,8 +65,8 @@ jobs:
         # Set environment
         env:
           DB_CONNECTION: mysql
-          DB_DATABASE: my_cashline_test
-          DB_USERNAME: root
+          DB_DATABASE: big
+          DB_USERNAME: sail
           DB_PASSWORD: password
 
       - name: Execute Code Static Analysis (PHP Stan + Larastan + Php Cs Fixer)
@@ -76,3 +76,4 @@ jobs:
     # Example: Deploy to Laravel Forge
     # - name: Deploy to Laravel Forge
     #   run: curl ${{ secrets.FORGE_STAGING_WEBHOOK }}
+
