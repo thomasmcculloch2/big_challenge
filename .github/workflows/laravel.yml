@@ -1,35 +1,78 @@
-name: Laravel
-
+name: Testing Laravel with Mysql
 on:
   push:
-    branches: [ "master" ]
+    paths:
+      - '**.php'
+      - 'phpunit.xml'
+      - '.github/workflows/ci.yml'
+      - 'composer.lock'
   pull_request:
-    branches: [ "master" ]
-
+    paths:
+      - '**.php'
+      - 'phpunit.xml'
+      - '.github/workflows/ci.yml'
+      - 'composer.lock'
 jobs:
-  laravel-tests:
-
+  laravel:
     runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: my_cashline_test
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.0'
-    - uses: actions/checkout@v3
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Generate key
-      run: php artisan key:generate
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      - name: Show Laravel versions
+        run: php artisan --version
+
+      - name: Show dir
+        run: pwd
+
+      - name: PHP Version
+        run: php --version
+
+      - name: Run Testsuite
+        run: vendor/bin/phpunit
+        # Set environment
+        env:
+          DB_CONNECTION: mysql
+          DB_DATABASE: my_cashline_test
+          DB_USERNAME: root
+          DB_PASSWORD: password
+
+      - name: Execute Code Static Analysis (PHP Stan + Larastan + Php Cs Fixer)
+        run: |
+          vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G --no-progress
+          vendor/bin/php-cs-fixer fix --dry-run
+    # Example: Deploy to Laravel Forge
+    # - name: Deploy to Laravel Forge
+    #   run: curl ${{ secrets.FORGE_STAGING_WEBHOOK }}
