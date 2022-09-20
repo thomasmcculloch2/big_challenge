@@ -21,12 +21,13 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required'],
             'email' => ['required','unique:users,email'],
             'password' => ['required'],
+            'type' => ['required'],//@TODO must be doctor or patient
         ];
     }
 }

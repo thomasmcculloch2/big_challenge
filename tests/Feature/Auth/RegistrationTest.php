@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -11,10 +10,10 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_example()
+    public function testExample()
     {
         $response = $this->postJson(route('user.register'), [
-            'name'=>'tom', 'email' => 'tom@mail.com', 'password' => Hash::make('tom123')
+            'name' => 'tom', 'email' => 'tom@mail.com', 'password' => Hash::make('tom123')
         ]);
 
         $response->assertSuccessful()
