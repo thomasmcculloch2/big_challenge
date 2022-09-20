@@ -13,7 +13,7 @@ class RegistrationTest extends TestCase
     public function testRegisterUserSuccessfully()
     {
         $response = $this->postJson(route('user.register'), [
-            'name' => 'tom', 'email' => 'tom@mail.com', 'password' => Hash::make('tom123')
+            'name' => 'tom', 'email' => 'tom@mail.com', 'password' => Hash::make('tom123'), 'type' => 'doctor'
         ]);
 
         $response->assertSuccessful()
