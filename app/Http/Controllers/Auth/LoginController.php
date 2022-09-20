@@ -19,15 +19,14 @@ class LoginController
 
         if (!$user || !Hash::check($data['password'],$user->password))  { //@TODO convert the password into a hash value in resgisterController when creating a user
             return response()->json(['message' => 'Invalid Credentials'], 401);
-        } else {
-            $token = $user->createToken('userToken')->plainTextToken;
-            $response = [
-                'message' => 'Login successful',
-                'user' => $user,
-                'token' => $token
-            ];
+        }
+        $token = $user->createToken('userToken')->plainTextToken;
+        $response = [
+            'message' => 'Login successful',
+            'user' => $user,
+            'token' => $token
+        ];
 
             return response()->json($response, 201);
         }
-    }
 }
