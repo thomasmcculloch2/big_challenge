@@ -17,14 +17,21 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [
+        $number = rand(1,2);
+
+        $user = [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'username' => fake()->unique()->userName(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
+        if ($number == 1) {
+            $user['type'] = 'doctor';
+        } else {
+            $user['type'] = 'patient';
+        }
+        return $user;
     }
 
     /**
