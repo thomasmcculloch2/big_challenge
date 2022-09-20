@@ -10,7 +10,7 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testExample()
+    public function testRegisterUserSuccessfully()
     {
         $response = $this->postJson(route('user.register'), [
             'name' => 'tom', 'email' => 'tom@mail.com', 'password' => Hash::make('tom123')
