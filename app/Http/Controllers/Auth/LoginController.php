@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController
 {
@@ -15,9 +14,9 @@ class LoginController
     {
         $data =  $request->validated();
 
-        $user = User::where('email',$data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
 
-        if (!$user || !Hash::check($data['password'],$user->password))  { //@TODO convert the password into a hash value in resgisterController when creating a user
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             return response()->json(['message' => 'Invalid Credentials'], 401);
         }
         $token = $user->createToken('userToken')->plainTextToken;
@@ -28,5 +27,5 @@ class LoginController
         ];
 
             return response()->json($response, 201);
-        }
+    }
 }

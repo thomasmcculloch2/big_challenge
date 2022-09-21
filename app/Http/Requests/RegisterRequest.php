@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -27,7 +28,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required'],
             'email' => ['required','unique:users,email'],
             'password' => ['required'],
-            'type' => ['required'],//@TODO must be doctor or patient
+            'type' => ['required'],
         ];
     }
 }

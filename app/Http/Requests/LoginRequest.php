@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -21,11 +22,11 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => ['required','email','max:191'],
-            'password' =>['required','string']
+            'password' => ['required','string']
         ];
     }
 }
