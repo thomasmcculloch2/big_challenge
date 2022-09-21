@@ -4,19 +4,27 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function loginIsSuccess(): void
+    public function testLoginIsSuccess(): void
     {
         $user = User::factory()->create();
 
+        $user =  User::create([
+            'name' => 'tommy',
+            'email' => 'tommy@mail.com',
+            'password' => Hash::make('password'),
+            'type' => 'doctor',
+        ]);
+
         $response = $this->postJson(route('user.login'), [
             'email' => $user->email,
-            'password' => $user->password
+            'password' => 'password'
         ]);
 
         $response->assertSuccessful()
@@ -26,7 +34,7 @@ class LoginTest extends TestCase
             ]);
     }
 
-    public function loginWithInvalidEmailOrPassword(): void
+    public function testLoginWithInvalidEmailOrPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'invalid@mail.com',
@@ -34,7 +42,7 @@ class LoginTest extends TestCase
         ])->assertUnauthorized();
     }
 
-    public function loginWithoutEmail(): void
+    public function testLoginWithoutEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => '',
@@ -42,7 +50,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutPassword(): void
+    public function testLoginWithoutPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail@mail.com',
@@ -50,7 +58,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutValidEmail(): void
+    public function testLoginWithoutValidEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail',
