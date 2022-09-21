@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -14,9 +15,16 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $user =  User::create([
+            'name' => 'tommy',
+            'email' => 'tommy@mail.com',
+            'password' => Hash::make('password'),
+            'type' => 'doctor',
+        ]);
+
         $response = $this->postJson(route('user.login'), [
             'email' => $user->email,
-            'password' => $user->password
+            'password' => 'password'
         ]);
 
         $response->assertSuccessful()
