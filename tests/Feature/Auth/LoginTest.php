@@ -2,16 +2,15 @@
 
 namespace Tests\Feature\Auth;
 
-use \App\Models\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
-    public function loginIsSuccess():void
+
+    public function loginIsSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -27,7 +26,7 @@ class LoginTest extends TestCase
             ]);
     }
 
-    public function loginWithInvalidEmailOrPassword() :void
+    public function loginWithInvalidEmailOrPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'invalid@mail.com',
@@ -35,7 +34,7 @@ class LoginTest extends TestCase
         ])->assertUnauthorized();
     }
 
-    public function loginWithoutEmail() :void
+    public function loginWithoutEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => '',
@@ -43,7 +42,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutPassword() :void
+    public function loginWithoutPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail@mail.com',
@@ -51,7 +50,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutValidEmail() :void
+    public function loginWithoutValidEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail',
