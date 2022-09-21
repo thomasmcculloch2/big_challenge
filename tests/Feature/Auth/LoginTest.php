@@ -10,7 +10,7 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function loginIsSuccess(): void
+    public function testLoginIsSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -26,7 +26,7 @@ class LoginTest extends TestCase
             ]);
     }
 
-    public function loginWithInvalidEmailOrPassword(): void
+    public function testLoginWithInvalidEmailOrPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'invalid@mail.com',
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
         ])->assertUnauthorized();
     }
 
-    public function loginWithoutEmail(): void
+    public function testLoginWithoutEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => '',
@@ -42,7 +42,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutPassword(): void
+    public function testLoginWithoutPassword(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail@mail.com',
@@ -50,7 +50,7 @@ class LoginTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function loginWithoutValidEmail(): void
+    public function testLoginWithoutValidEmail(): void
     {
         $this->postJson(route('user.login'), [
             'email' => 'mail',
