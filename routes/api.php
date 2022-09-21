@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,6 @@ Route::post('login', LoginController::class)->name('user.login');
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('logout', LogoutController::class)->name('user.logout');
+    Route::post('submissions/new', [SubmissionController::class, 'store'])->name('submission.new');
+
 });
