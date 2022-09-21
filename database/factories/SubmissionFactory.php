@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class SubmissionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => fake()->name(),
+            'symptoms' => fake()->paragraph() ,
+            'status' => 'pending',
+            'patient' => User::factory()->create()
         ];
     }
 }

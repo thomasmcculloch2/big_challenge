@@ -28,6 +28,6 @@ Route::post('login', LoginController::class)->name('user.login');
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('logout', LogoutController::class)->name('user.logout');
-    Route::post('submissions/new', [SubmissionController::class, 'store'])->name('submission.new');
+    Route::post('submissions', [SubmissionController::class, 'store'])->name('submission.new');
 
 });
