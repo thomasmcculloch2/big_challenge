@@ -1,14 +1,12 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\Submissions;
 
-use App\Models\Constants\Rol;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
-class SubmissionTest extends TestCase
+class StoreSubmissionTest extends TestCase
 {
     use RefreshDatabase;
 
