@@ -6,7 +6,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubmissionResource extends JsonResource
+class StoreSubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
