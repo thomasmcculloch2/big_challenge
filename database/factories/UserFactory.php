@@ -31,13 +31,6 @@ class UserFactory extends Factory
         ];
     }
 
-//    public function patient()
-//    {
-//       return $this->assignRole(Rol::ROL['PATIENT']);
-//
-//    }
-
-
     public function patient() {
         return $this->afterCreating(function(User $user) {
             try {
