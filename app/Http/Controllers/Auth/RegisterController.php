@@ -35,7 +35,7 @@ class RegisterController
 
         $response = [
             'message' => 'User created successfully',
-            'user' => UserResource::collection([$user]),
+            'user' => UserResource::make($user),
             'token' => $token
         ];
 
