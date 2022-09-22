@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Constants\Rol;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SubmissionTest extends TestCase
@@ -12,7 +14,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionSuccessful(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -35,7 +37,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -47,7 +49,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -55,5 +57,18 @@ class SubmissionTest extends TestCase
         ]);
 
         $response->assertUnprocessable();
+    }
+
+    public function testNewSubmissionBeingADoctor(): void
+    {
+        $user = User::factory()->doctor()->create();
+        $this->actingAs($user);
+
+        $response = $this->postJson(route('submission.new'), [
+            'title' => 'Gripe',
+            'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
+        ]);
+
+        $response->assertForbidden();
     }
 }

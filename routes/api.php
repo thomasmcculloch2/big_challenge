@@ -22,12 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', RegisterController::class)->name('user.register');
+Route::post('register', RegisterController::class)->name('user.register')->middleware('guest');
 
-Route::post('login', LoginController::class)->name('user.login');
+Route::post('login', LoginController::class)->name('user.login')->middleware('guest');
 
-Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::post('logout', LogoutController::class)->name('user.logout');
+Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
+
+Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
     Route::post('submissions', [SubmissionController::class, 'store'])->name('submission.new');
-
 });

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class LoginController
         $token = $user->createToken('userToken')->plainTextToken;
         $response = [
             'message' => 'Login successful',
-            'user' => $user,
+            'user' => UserResource::make($user),
             'token' => $token
         ];
 

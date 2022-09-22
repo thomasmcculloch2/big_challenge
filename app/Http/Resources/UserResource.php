@@ -6,7 +6,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubmissionResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,10 @@ class SubmissionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this->title,
-            'symptoms' => $this->symptoms,
-            'status' => $this->status,
-            'patient' => $this->patient
+            'name' => $this->name,
+            'email' => $this->email,
+            'id' => $this->id,
+            'roles' => RoleResource::collection($this->roles)
         ];
     }
 }

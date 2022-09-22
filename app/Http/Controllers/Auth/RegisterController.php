@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
+use App\Models\Constants\Rol;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -14,18 +16,26 @@ class RegisterController
     public function __invoke(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
+        if ($data['type'] != Rol::DOCTOR && $data['type'] != Rol::PATIENT) {
+            return response()->json(['message' => 'Must give a valid type'], 422);
+        }
         $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'type' => $data['type'],
         ]);
+
+        if ($data['type'] == Rol::DOCTOR) {
+            $user->assignRole(Rol::DOCTOR);
+        } else {
+            $user->assignRole(Rol::PATIENT);
+        }
 
         $token = $user->createToken('userToken')->plainTextToken;
 
         $response = [
             'message' => 'User created successfully',
-            'user' => $user,
+            'user' => UserResource::make($user),
             'token' => $token
         ];
 
