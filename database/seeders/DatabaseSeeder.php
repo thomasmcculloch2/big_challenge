@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $roleDoctor = Role::create(['name' => 'doctor']);
+        $rolePatient = Role::create(['name' => 'patient']);
         Submission::factory(10)->create();
     }
 }

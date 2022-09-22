@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SubmissionTest extends TestCase
@@ -13,6 +14,8 @@ class SubmissionTest extends TestCase
     public function testNewSubmissionSuccessful(): void
     {
         $user = User::factory()->create();
+        Role::create(['name' => 'patient']);
+        $user->assignRole('patient');
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -36,6 +39,8 @@ class SubmissionTest extends TestCase
     public function testNewSubmissionWithoutTitle(): void
     {
         $user = User::factory()->create();
+        Role::create(['name' => 'patient']);
+        $user->assignRole('patient');
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -48,6 +53,8 @@ class SubmissionTest extends TestCase
     public function testNewSubmissionWithoutSymptoms(): void
     {
         $user = User::factory()->create();
+        Role::create(['name' => 'patient']);
+        $user->assignRole('patient');
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
