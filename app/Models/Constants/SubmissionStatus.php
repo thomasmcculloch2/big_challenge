@@ -2,18 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Constants;
 
-class Constant
+class SubmissionStatus
 {
     public const SUBMISSION_STATE = [
         'PENDING' => 'pending',
         'IN_PROGRESS' => 'in progress',
         'DONE' => 'done'
-    ];
-
-    public const USER_TYPE = [
-        'DOCTOR' => 'doctor',
-        'PATIENT' => 'patient',
     ];
 }

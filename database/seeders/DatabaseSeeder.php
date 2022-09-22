@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Constants\Rol;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,8 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $roleDoctor = Role::create(['name' => 'doctor']);
-        $rolePatient = Role::create(['name' => 'patient']);
+        $roleDoctor = Role::create(['name' => Rol::ROL['DOCTOR']]);
+        $rolePatient = Role::create(['name' => Rol::ROL['PATIENT']]);
         Submission::factory(10)->create();
     }
 }

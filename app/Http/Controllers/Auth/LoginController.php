@@ -24,7 +24,7 @@ class LoginController
         $token = $user->createToken('userToken')->plainTextToken;
         $response = [
             'message' => 'Login successful',
-            'user' => UserResource::collection([$user]),
+            'user' => UserResource::make($user),
             'token' => $token
         ];
 

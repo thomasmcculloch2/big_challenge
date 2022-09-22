@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Constants\Rol;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
@@ -13,9 +14,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionSuccessful(): void
     {
-        $user = User::factory()->create();
-        Role::create(['name' => 'patient']);
-        $user->assignRole('patient');
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -38,9 +37,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->create();
-        Role::create(['name' => 'patient']);
-        $user->assignRole('patient');
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -52,9 +49,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->create();
-        Role::create(['name' => 'patient']);
-        $user->assignRole('patient');
+        $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -66,9 +61,7 @@ class SubmissionTest extends TestCase
 
     public function testNewSubmissionBeingADoctor(): void
     {
-        $user = User::factory()->create();
-        Role::create(['name' => 'doctor']);
-        $user->assignRole('doctor');
+        $user = User::factory()->doctor()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [

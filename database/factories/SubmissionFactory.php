@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Constant;
+use App\Models\Constants\SubmissionStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +22,7 @@ class SubmissionFactory extends Factory
         return [
             'title' => fake()->name(),
             'symptoms' => fake()->paragraph(1) ,
-            'status' => Constant::SUBMISSION_STATE['PENDING'],
+            'status' => SubmissionStatus::SUBMISSION_STATE['PENDING'],
             'patient' => User::factory()->create()
         ];
     }

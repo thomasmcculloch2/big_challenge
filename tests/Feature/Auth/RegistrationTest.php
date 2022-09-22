@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Constants\Rol;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -10,12 +11,29 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testRegisterUserSuccessfully()
+    public function testRegisterDoctorSuccessfully()
     {
-        Role::create(['name' => 'doctor']);
-        Role::create(['name' => 'patient']);
+        Role::create(['name' => Rol::ROL['DOCTOR']]);
+        Role::create(['name' => Rol::ROL['PATIENT']]);
         $response = $this->postJson(route('user.register'), [
             'name' => 'tom', 'email' => 'tom@mail.com', 'password' => 'tom123', 'type' => 'doctor'
+        ]);
+
+        $response->assertSuccessful()
+            ->assertJsonStructure([
+                'user',
+                'token'
+            ]);
+
+        $this->assertDatabaseHas('users', ['email' => 'tom@mail.com']);
+    }
+
+    public function testRegisterPatientSuccessfully()
+    {
+        Role::create(['name' => Rol::ROL['DOCTOR']]);
+        Role::create(['name' => Rol::ROL['PATIENT']]);
+        $response = $this->postJson(route('user.register'), [
+            'name' => 'tom', 'email' => 'tom@mail.com', 'password' => 'tom123', 'type' => 'patient'
         ]);
 
         $response->assertSuccessful()
