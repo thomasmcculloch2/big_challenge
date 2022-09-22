@@ -16,7 +16,7 @@ class RegisterController
     public function __invoke(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
-        if ($data['type'] != Rol::ROL['DOCTOR'] && $data['type'] != Rol::ROL['PATIENT']) {
+        if ($data['type'] != Rol::DOCTOR && $data['type'] != Rol::PATIENT) {
             return response()->json(['message' => 'Must give a valid type'], 422);
         }
         $user =  User::create([
@@ -25,10 +25,10 @@ class RegisterController
             'password' => Hash::make($data['password']),
         ]);
 
-        if ($data['type'] == Rol::ROL['DOCTOR']) {
-            $user->assignRole(Rol::ROL['DOCTOR']);
+        if ($data['type'] == Rol::DOCTOR) {
+            $user->assignRole(Rol::DOCTOR);
         } else {
-            $user->assignRole(Rol::ROL['PATIENT']);
+            $user->assignRole(Rol::PATIENT);
         }
 
         $token = $user->createToken('userToken')->plainTextToken;

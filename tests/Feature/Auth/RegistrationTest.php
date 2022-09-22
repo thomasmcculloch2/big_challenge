@@ -13,8 +13,7 @@ class RegistrationTest extends TestCase
 
     public function testRegisterDoctorSuccessfully()
     {
-        Role::create(['name' => Rol::ROL['DOCTOR']]);
-        Role::create(['name' => Rol::ROL['PATIENT']]);
+        Role::create(['name' => Rol::DOCTOR]);
         $response = $this->postJson(route('user.register'), [
             'name' => 'tom', 'email' => 'tom@mail.com', 'password' => 'tom123', 'type' => 'doctor'
         ]);
@@ -30,8 +29,7 @@ class RegistrationTest extends TestCase
 
     public function testRegisterPatientSuccessfully()
     {
-        Role::create(['name' => Rol::ROL['DOCTOR']]);
-        Role::create(['name' => Rol::ROL['PATIENT']]);
+        Role::create(['name' => Rol::PATIENT]);
         $response = $this->postJson(route('user.register'), [
             'name' => 'tom', 'email' => 'tom@mail.com', 'password' => 'tom123', 'type' => 'patient'
         ]);

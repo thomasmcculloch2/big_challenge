@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $roleDoctor = Role::create(['name' => Rol::ROL['DOCTOR']]);
-        $rolePatient = Role::create(['name' => Rol::ROL['PATIENT']]);
+        $roleDoctor = Role::create(['name' => Rol::DOCTOR]);
+        $rolePatient = Role::create(['name' => Rol::PATIENT]);
         Submission::factory(10)->create();
     }
 }

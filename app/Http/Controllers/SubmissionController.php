@@ -21,7 +21,7 @@ class SubmissionController extends Controller
         $submission = Submission::create([
            'title' => $data['title'],
            'symptoms' => $data['symptoms'] ,
-            'status' => SubmissionStatus::SUBMISSION_STATE['PENDING'],
+            'status' => SubmissionStatus::PENDING,
             'patient' => $user->id
         ]);
 

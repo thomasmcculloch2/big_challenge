@@ -34,22 +34,22 @@ class UserFactory extends Factory
     public function patient() {
         return $this->afterCreating(function(User $user) {
             try {
-                Role::create(['name' => Rol::ROL['PATIENT']]);
+                Role::create(['name' => Rol::PATIENT]);
             } catch (RoleAlreadyExists $e) {
                 // DO nothing
             }
-            $user->assignRole(Rol::ROL['PATIENT']);
+            $user->assignRole(Rol::PATIENT);
         });
     }
 
     public function doctor() {
         return $this->afterCreating(function(User $user) {
             try {
-                Role::create(['name' => Rol::ROL['DOCTOR']]);
+                Role::create(['name' => Rol::DOCTOR]);
             } catch (RoleAlreadyExists $e) {
                 // DO nothing
             }
-            $user->assignRole(Rol::ROL['DOCTOR']);
+            $user->assignRole(Rol::DOCTOR);
         });
     }
 
