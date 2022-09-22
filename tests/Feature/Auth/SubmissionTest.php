@@ -63,4 +63,19 @@ class SubmissionTest extends TestCase
 
         $response->assertUnprocessable();
     }
+
+    public function testNewSubmissionBeingADoctor(): void
+    {
+        $user = User::factory()->create();
+        Role::create(['name' => 'doctor']);
+        $user->assignRole('doctor');
+        $this->actingAs($user);
+
+        $response = $this->postJson(route('submission.new'), [
+            'title' => 'Gripe',
+            'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
+        ]);
+
+        $response->assertForbidden();
+    }
 }
