@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GetSubmissionController;
+use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\StoreSubmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::post('logout', LogoutController::class)->name('user.logout')->middleware(
 
 Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
     Route::post('submissions', StoreSubmissionController::class)->name('submission.new');
+    Route::post('info', PatientInfoController::class)->name('patient.info');
 });
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {
