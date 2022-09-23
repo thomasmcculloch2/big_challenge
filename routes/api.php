@@ -31,10 +31,13 @@ Route::post('login', LoginController::class)->name('user.login')->middleware('gu
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
 Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
-    Route::post('submissions', StoreSubmissionController::class)->name('submission.new');
     Route::post('info', PatientInfoController::class)->name('patient.info');
 });
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {
     Route::get('submissions', GetSubmissionController::class)->name('submission.index');
+});
+
+Route::group(['middleware' => ['auth:sanctum','role:full_patient']], function() {
+    Route::post('submissions', StoreSubmissionController::class)->name('submission.new');
 });

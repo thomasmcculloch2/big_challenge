@@ -1,17 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientInfoRequest;
 use App\Http\Requests\SubmissionRequest;
 use App\Http\Resources\PatientInfoResource;
 use App\Http\Resources\SubmissionResource;
+use App\Models\Constants\Rol;
 use App\Models\Constants\SubmissionStatus;
 use App\Models\PatientsInfos;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Exceptions\RoleAlreadyExists;
+use Spatie\Permission\Models\Role;
 
 class PatientInfoController extends Controller
 {
@@ -23,6 +28,8 @@ class PatientInfoController extends Controller
 
         $patient = PatientsInfos::where('patient_id', $user->id)->first();
         if (!$patient) {
+            $user->assignRole(Rol::FULL_PATIENT);
+
             $patient_info = PatientsInfos::create([
                 'phone' => $data['phone'],
                 'weight' => $data['weight'] ,

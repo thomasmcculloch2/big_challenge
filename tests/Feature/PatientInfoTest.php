@@ -11,24 +11,68 @@ use Tests\TestCase;
 
 class PatientInfoTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testCreatePatientInfo()
+    use RefreshDatabase;
+
+    public function testCreatePatientInfo(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
+        Role::create(['name' => Rol::FULL_PATIENT]);
+
+        $response = $this->postJson(route('patient.info'), [
+            'phone' => '098456377', 'weight' => '79', 'height' => '188', 'info' => 'Problems you might have'
+        ])->assertSuccessful();
+
+        $this->assertDatabaseHas('patients_infos', ['patient_id' => $user->id]);
+    }
+
+    public function testCreatePatientInfoAsDoctor(): void
+    {
+        $user = User::factory()->doctor()->create();
+        $this->actingAs($user);
+
+        $response = $this->postJson(route('patient.info'), [
+            'phone' => '098456377', 'weight' => '79', 'height' => '188', 'info' => 'Problems you might have'
+        ])->assertForbidden();
+    }
+
+    public function testCreatePatientInfoWithouPhone(): void
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
-        $response = $this->postJson();
+        $response = $this->postJson(route('patient.info'), [
+            'weight' => '79', 'height' => '188', 'info' => 'Problems you might have'
+        ])->assertUnprocessable();
+    }
 
-        $response->assertSuccessful()
-            ->assertJsonStructure([
-                'user',
-                'token'
-            ]);
+    public function testCreatePatientInfoWithouWeiht(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
 
-        $this->assertDatabaseHas('users', ['email' => 'tom@mail.com']);
+        $response = $this->postJson(route('patient.info'), [
+            'phone' => '098456377', 'height' => '188', 'info' => 'Problems you might have'
+        ])->assertUnprocessable();
+    }
+
+    public function testCreatePatientInfoWithouHeight(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
+
+        $response = $this->postJson(route('patient.info'), [
+            'phone' => '098456377', 'weight' => '79', 'info' => 'Problems you might have'
+        ])->assertUnprocessable();
+    }
+
+    public function testCreatePatientInfoWithouInfo(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
+
+        $response = $this->postJson(route('patient.info'), [
+            'phone' => '098456377', 'weight' => '79', 'height' => '188'
+        ])->assertUnprocessable();
     }
 }

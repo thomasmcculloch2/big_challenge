@@ -8,4 +8,5 @@ class Rol
 {
     const DOCTOR = 'doctor';
     const PATIENT = 'patient';
+    const FULL_PATIENT = 'full_patient';
 }
