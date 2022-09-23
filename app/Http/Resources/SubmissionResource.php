@@ -19,9 +19,10 @@ class SubmissionResource extends JsonResource
     {
         return [
             'title' => $this->title,
+            'doctor' => $this->doctor,
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient' => $this->patient
+            'patient_id' => $this->patient
         ];
     }
 }

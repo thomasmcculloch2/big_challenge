@@ -6,14 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmissionRequest;
 use App\Http\Resources\SubmissionResource;
-use App\Models\Constant;
 use App\Models\Constants\SubmissionStatus;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 
-class SubmissionController extends Controller
+class StoreSubmissionController
 {
-    public function store(SubmissionRequest $request): JsonResponse
+    public function __invoke(SubmissionRequest $request): JsonResponse
     {
         $data = $request->validated();
         /* @var User $user */
@@ -27,7 +26,7 @@ class SubmissionController extends Controller
 
         $response = [
             'message' => 'Submission created successfully',
-            'submission' => SubmissionResource::collection([$submission]),
+            'submission' => SubmissionResource::make($submission),
         ];
 
         return response()->json($response, 201);
