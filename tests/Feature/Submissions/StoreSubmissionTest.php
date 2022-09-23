@@ -24,15 +24,6 @@ class StoreSubmissionTest extends TestCase
         $this->assertDatabaseHas('submissions', ['title' => 'Gripe']);
     }
 
-    public function testNewSubmissionWithoutFullInfomation(): void
-    {
-        $user = User::factory()->patient()->create();
-        $this->actingAs($user);
-
-        $response = $this->postJson(route('submission.new'), [
-            'title' => 'Gripe', 'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
-        ])->assertForbidden();
-    }
 
     public function testNewSubmissionWithoutToken(): void
     {
@@ -45,7 +36,7 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->full_patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -57,7 +48,7 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->full_patient()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
