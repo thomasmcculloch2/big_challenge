@@ -5,18 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientInfoRequest;
-use App\Http\Requests\SubmissionRequest;
 use App\Http\Resources\PatientInfoResource;
-use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\Rol;
-use App\Models\Constants\SubmissionStatus;
 use App\Models\PatientsInfos;
-use App\Models\Submission;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Spatie\Permission\Exceptions\RoleAlreadyExists;
-use Spatie\Permission\Models\Role;
 
 class PatientInfoController extends Controller
 {
