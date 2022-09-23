@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubmissionRequest;
-use App\Http\Resources\GetSubmissionResource;
-use App\Http\Resources\StoreSubmissionResource;
+use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\Rol;
-use App\Models\Constants\SubmissionStatus;
 use App\Models\Submission;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
-class GetSubmissionController extends Controller
+class GetSubmissionController
 {
     public function __invoke(): JsonResponse
     {
@@ -23,11 +19,9 @@ class GetSubmissionController extends Controller
 
         if ($roles->contains(Rol::DOCTOR)) {
             $submission = Submission::all();
-            return response()->json(GetSubmissionResource::collection($submission), 201);
-        } else {
-            $submission = Submission::query()->where('patient',$user->id)->get();
-            return response()->json(GetSubmissionResource::collection($submission), 201);
+            return response()->json(SubmissionResource::collection($submission), 201);
         }
-
+            $submission = Submission::query()->where('patient', $user->id)->get();
+            return response()->json(SubmissionResource::collection($submission), 201);
     }
 }

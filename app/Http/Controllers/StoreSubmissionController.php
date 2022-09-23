@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmissionRequest;
-use App\Http\Resources\StoreSubmissionResource;
-use App\Models\Constants\Rol;
+use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\SubmissionStatus;
 use App\Models\Submission;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
-class StoreSubmissionController extends Controller
+class StoreSubmissionController
 {
     public function __invoke(SubmissionRequest $request): JsonResponse
     {
@@ -28,11 +26,9 @@ class StoreSubmissionController extends Controller
 
         $response = [
             'message' => 'Submission created successfully',
-            'submission' => StoreSubmissionResource::make($submission),
+            'submission' => SubmissionResource::make($submission),
         ];
 
         return response()->json($response, 201);
     }
-
-
 }

@@ -6,7 +6,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StoreSubmissionResource extends JsonResource
+class SubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +19,10 @@ class StoreSubmissionResource extends JsonResource
     {
         return [
             'title' => $this->title,
+            'doctor' => $this->doctor,
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient' => $this->patient
+            'patient_id' => $this->patient
         ];
     }
 }

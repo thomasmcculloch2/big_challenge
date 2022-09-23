@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StoreSubmissionTest extends TestCase
+class GetSubmissionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -15,7 +15,11 @@ class StoreSubmissionTest extends TestCase
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
-        $response = $this->getJson(route('submission.index'))->assertSuccessful();
+        $response = $this->getJson(route('submission.index'));
+        $response->assertSuccessful()
+            ->assertJsonStructure([
+
+            ]);
     }
 
     public function testGetSubmissionSuccessfulAsDoctor(): void
