@@ -65,6 +65,8 @@ jobs:
         # Set environment
         env:
           DB_CONNECTION: mysql
+          DB_HOST: mysql
+          DB_PORT: 3306
           DB_DATABASE: big
           DB_USERNAME: root
           DB_PASSWORD: password
