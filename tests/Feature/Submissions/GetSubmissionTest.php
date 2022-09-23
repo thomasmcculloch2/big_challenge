@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Submissions;
 
+use App\Models\Submission;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,11 +17,17 @@ class GetSubmissionTest extends TestCase
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
+        $submission = Submission::factory()
+            ->count(10)
+            ->state(new Sequence(
+                ['patient' => $user->id],
+                ['patient' => User::factory()->patient()->create()],
+            ))
+            ->create();
+
         $response = $this->getJson(route('submission.index'));
         $response->assertSuccessful()
-            ->assertJsonStructure([
-
-            ]);
+            ->assertJsonCount(5);
     }
 
     public function testGetSubmissionSuccessfulAsDoctor(): void
@@ -27,8 +35,19 @@ class GetSubmissionTest extends TestCase
         $user = User::factory()->doctor()->create();
         $this->actingAs($user);
 
-        $response = $this->getJson(route('submission.index'))->assertSuccessful();
+        $submission = Submission::factory()
+            ->count(10)
+            ->state(new Sequence(
+                ['patient' => User::factory()->patient()->create()],
+                ['patient' => User::factory()->patient()->create()],
+            ))
+            ->create();
+
+        $response = $this->getJson(route('submission.index'));
+        $response->assertSuccessful()
+            ->assertJsonCount(10);
     }
+
 
     public function testGetSubmissionNotLogged(): void
     {
