@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Models\PatientsInfos;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -21,7 +23,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'id' => $this->id,
-            'roles' => RoleResource::collection($this->roles)
+            'info' => PatientInfoResource::make(PatientsInfos::where('patient_id', $this->id)->first()),
+            'roles' => RoleResource::collection($this->roles),
         ];
     }
 }

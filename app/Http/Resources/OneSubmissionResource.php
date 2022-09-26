@@ -7,7 +7,7 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubmissionResource extends JsonResource
+class OneSubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,7 @@ class SubmissionResource extends JsonResource
             'doctor' => $this->doctor,
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient_id' => $this->patient,
+            'patient' => UserResource::make(User::find($this->patient)),
         ];
     }
 }

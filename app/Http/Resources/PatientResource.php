@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubmissionResource extends JsonResource
+class PatientResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,11 +18,10 @@ class SubmissionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this->title,
-            'doctor' => $this->doctor,
-            'symptoms' => $this->symptoms,
-            'status' => $this->status,
-            'patient_id' => $this->patient,
+            'name' => $this->name,
+            'email' => $this->email,
+            'id' => $this->id,
+            'info' => PatientInfoResource::make($this->patient_info),
         ];
     }
 }

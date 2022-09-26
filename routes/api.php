@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetSubmissionController;
 use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\StoreSubmissionController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {
     Route::get('submissions', GetSubmissionController::class)->name('submission.index');
+    Route::get('submissions/{id}', GetOneSubmissionController::class)->name('submission.show');
 });
 
 Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class]], function() {
