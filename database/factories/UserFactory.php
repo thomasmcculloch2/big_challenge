@@ -42,16 +42,6 @@ class UserFactory extends Factory
         });
     }
 
-    public function full_patient() {
-        return $this->afterCreating(function(User $user) {
-            try {
-                Role::create(['name' => Rol::FULL_PATIENT]);
-            } catch (RoleAlreadyExists $e) {
-                // DO nothing
-            }
-            $user->assignRole(Rol::FULL_PATIENT);
-        });
-    }
 
     public function doctor() {
         return $this->afterCreating(function(User $user) {

@@ -48,7 +48,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function patient_info()
+    public function patient_info(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PatientsInfos::class);
     }

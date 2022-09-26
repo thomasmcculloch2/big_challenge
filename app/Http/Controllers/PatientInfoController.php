@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientInfoRequest;
 use App\Http\Resources\PatientInfoResource;
-use App\Models\Constants\Rol;
 use App\Models\PatientsInfos;
 use Illuminate\Http\JsonResponse;
 
@@ -16,12 +15,10 @@ class PatientInfoController extends Controller
     {
         $data = $request->validated();
         /* @var User $user */
-        $user = auth()->user();
+        $user = $request->user();
 
         $patient = PatientsInfos::where('patient_id', $user->id)->first();
         if (!$patient) {
-            $user->assignRole(Rol::FULL_PATIENT);
-
             $patient_info = PatientsInfos::create([
                 'phone' => $data['phone'],
                 'weight' => $data['weight'] ,

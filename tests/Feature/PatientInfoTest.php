@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Constants\Rol;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class PatientInfoTest extends TestCase
@@ -16,7 +14,6 @@ class PatientInfoTest extends TestCase
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
-        Role::create(['name' => Rol::FULL_PATIENT]);
 
         $response = $this->postJson(route('patient.info'), [
             'phone' => '098456377', 'weight' => '79', 'height' => '188', 'info' => 'Problems you might have'

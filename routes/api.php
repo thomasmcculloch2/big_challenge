@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GetSubmissionController;
 use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\StoreSubmissionController;
+use App\Http\Middleware\PatientHasInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,6 @@ Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function(
     Route::get('submissions', GetSubmissionController::class)->name('submission.index');
 });
 
-Route::group(['middleware' => ['auth:sanctum','role:full_patient']], function() {
+Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class]], function() {
     Route::post('submissions', StoreSubmissionController::class)->name('submission.new');
 });
