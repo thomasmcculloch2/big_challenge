@@ -8,13 +8,13 @@ use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\Rol;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class GetSubmissionController
 {
     public function __invoke(): JsonResponse
     {
-        /* @var User $user */
-        $user = auth()->user();
+        $user = Auth::user();
         $roles = $user->getRoleNames();
 
         if ($roles->contains(Rol::DOCTOR)) {

@@ -6,20 +6,20 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class PatientInfoRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => ['required'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required'],
-            'type' => ['required'],
+            'phone' => ['required','numeric'],
+            'weight' => ['required','numeric'],
+            'height' => ['required','numeric'],
+            'info' => ['required'],
         ];
     }
 }

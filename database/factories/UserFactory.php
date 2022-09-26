@@ -42,6 +42,7 @@ class UserFactory extends Factory
         });
     }
 
+
     public function doctor() {
         return $this->afterCreating(function(User $user) {
             try {

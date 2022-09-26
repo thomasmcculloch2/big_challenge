@@ -9,14 +9,15 @@ use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\SubmissionStatus;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class StoreSubmissionController
 {
     public function __invoke(SubmissionRequest $request): JsonResponse
     {
         $data = $request->validated();
-        /* @var User $user */
-        $user = auth()->user();
+
+        $user = $request->user();
         $submission = Submission::create([
            'title' => $data['title'],
            'symptoms' => $data['symptoms'] ,
