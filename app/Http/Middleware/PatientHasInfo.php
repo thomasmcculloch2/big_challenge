@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Constants\Rol;
 use App\Models\PatientsInfos;
 use Closure;
 use Illuminate\Http\Request;
@@ -20,7 +21,6 @@ class PatientHasInfo
      */
     public function handle(Request $request, Closure $next)
     {
-        /* @var User $user */
         $user = $request->user();
         $patient = PatientsInfos::where('patient_id', $user->id)->first();
         if (!$patient) {

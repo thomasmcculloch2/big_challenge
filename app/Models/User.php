@@ -50,6 +50,6 @@ class User extends Authenticatable
 
     public function patient_info(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(PatientsInfos::class);
+        return $this->belongsTo(PatientsInfos::class,'patient_id');
     }
 }

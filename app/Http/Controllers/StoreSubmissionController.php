@@ -17,7 +17,7 @@ class StoreSubmissionController
     {
         $data = $request->validated();
 
-        $user = Auth::user();
+        $user = $request->user();
         $submission = Submission::create([
            'title' => $data['title'],
            'symptoms' => $data['symptoms'] ,
