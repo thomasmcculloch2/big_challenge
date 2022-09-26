@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $patient
+ *
  * @method static \Database\Factories\InformationFactory            factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Information newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Information newQuery()
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Information wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Information whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Information whereWeight($value)
+ *
  * @mixin \Eloquent
  */
 class Information extends Model

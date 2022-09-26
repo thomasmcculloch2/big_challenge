@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientInfoRequest;
 use App\Http\Resources\PatientInfoResource;
 use App\Models\Information;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class InformationController extends Controller
