@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patients_infos', function (Blueprint $table) {
+        Schema::create('information', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->foreign('patient_id')->references('id')->on('users');

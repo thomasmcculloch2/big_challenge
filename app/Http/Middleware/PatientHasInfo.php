@@ -24,8 +24,7 @@ class PatientHasInfo
         /** @var User $user */
         $user = $request->user();
         $patient = $user->information;
-        $rol = $user->getRoleNames();
-        if ($rol[0] == Rol::DOCTOR) {
+        if ($user->hasRole(Rol::DOCTOR)) {
             return response(['message' => 'Only patients can create submissions.'], 403);
         }
         if (!$patient) {

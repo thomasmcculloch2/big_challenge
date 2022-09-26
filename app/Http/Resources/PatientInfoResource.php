@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use App\Models\PatientsInfos;
+use App\Models\Information;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin PatientsInfos
+ * @mixin Information
  */
 class PatientInfoResource extends JsonResource
 {

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Submissions;
 
-use App\Models\PatientsInfos;
+use App\Models\Information;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,7 +15,7 @@ class StoreSubmissionTest extends TestCase
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
+        Information::factory()->create([
             'patient_id' => $user->id,
         ]);
 
@@ -53,7 +53,7 @@ class StoreSubmissionTest extends TestCase
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
+        Information::factory()->create([
             'patient_id' => $user->id,
         ]);
 
@@ -68,7 +68,7 @@ class StoreSubmissionTest extends TestCase
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
+        Information::factory()->create([
             'patient_id' => $user->id,
         ]);
 

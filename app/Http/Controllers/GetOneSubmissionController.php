@@ -12,7 +12,6 @@ class GetOneSubmissionController
 {
     public function __invoke(int $id): JsonResponse
     {
-
             $submission = Submission::find($id);
             return response()->json(OneSubmissionResource::make($submission), 201);
     }
