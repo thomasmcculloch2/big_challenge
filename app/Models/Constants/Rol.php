@@ -6,6 +6,6 @@ namespace App\Models\Constants;
 
 class Rol
 {
-    const DOCTOR = 'doctor';
-    const PATIENT = 'patient';
+    public const DOCTOR = 'doctor';
+    public const PATIENT = 'patient';
 }

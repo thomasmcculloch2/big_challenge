@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Submission
+ */
 class OneSubmissionResource extends JsonResource
 {
     /**
@@ -14,9 +18,9 @@ class OneSubmissionResource extends JsonResource
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'title' => $this->title,

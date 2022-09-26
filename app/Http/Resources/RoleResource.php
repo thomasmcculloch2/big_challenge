@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin User
+ */
 class RoleResource extends JsonResource
 {
     /**
@@ -13,9 +17,9 @@ class RoleResource extends JsonResource
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'name' => $this->name,

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use App\Models\PatientsInfos;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * @mixin User
+ */
 
 class UserResource extends JsonResource
 {
@@ -15,15 +18,15 @@ class UserResource extends JsonResource
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'name' => $this->name,
             'email' => $this->email,
             'id' => $this->id,
-            'info' => PatientInfoResource::make(PatientsInfos::where('patient_id', $this->id)->first()),
+            'info' => PatientInfoResource::make(User::find($this->id)->information),
             'roles' => RoleResource::collection($this->roles),
         ];
     }

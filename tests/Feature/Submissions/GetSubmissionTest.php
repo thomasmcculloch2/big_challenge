@@ -48,7 +48,6 @@ class GetSubmissionTest extends TestCase
             ->assertJsonCount(10);
     }
 
-
     public function testGetSubmissionNotLogged(): void
     {
         $response = $this->getJson(route('submission.index'))->assertUnauthorized();

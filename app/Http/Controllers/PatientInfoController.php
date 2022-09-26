@@ -19,7 +19,7 @@ class PatientInfoController extends Controller
 
         $patient = PatientsInfos::where('patient_id', $user->id)->first();
         if (!$patient) {
-            $patient_info = PatientsInfos::create([
+            $patientInfo = PatientsInfos::create([
                 'phone' => $data['phone'],
                 'weight' => $data['weight'] ,
                 'height' => $data['height'],
@@ -29,7 +29,7 @@ class PatientInfoController extends Controller
 
             $response = [
                 'message' => 'Patient info created successfully',
-                'info' => PatientInfoResource::make($patient_info),
+                'info' => PatientInfoResource::make($patientInfo),
             ];
 
             return response()->json($response, 201);

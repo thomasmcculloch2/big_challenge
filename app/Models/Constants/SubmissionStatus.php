@@ -6,7 +6,7 @@ namespace App\Models\Constants;
 
 class SubmissionStatus
 {
-    const PENDING = 'pending';
-    const IN_PROGRESS = 'in_progress';
-    const DONE = 'done';
+    public const PENDING = 'pending';
+    public const IN_PROGRESS = 'in_progress';
+    public const DONE = 'done';
 }

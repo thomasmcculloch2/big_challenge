@@ -4,9 +4,7 @@ namespace Tests\Feature\Submissions;
 
 use App\Models\Submission;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class GetOneSubmissionTest extends TestCase
@@ -20,7 +18,7 @@ class GetOneSubmissionTest extends TestCase
 
         $submission = Submission::factory()->create();
 
-        $response = $this->getJson(route('submission.index',"$submission->id"));
+        $response = $this->getJson(route('submission.index', "$submission->id"));
         $response->assertSuccessful();
     }
 
