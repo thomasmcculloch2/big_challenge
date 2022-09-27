@@ -4,10 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Submission;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AssignDoctorTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testAssignDoctorToSubmissionSuccessful(): void
     {
         $user = User::factory()->doctor()->create();
