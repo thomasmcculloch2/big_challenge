@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('doctor')->nullable();
-            $table->foreign('doctor')->references('id')->on('users')->nullOnDelete();
-            $table->foreignId('patient')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->string('symptoms');
             $table->string('status');

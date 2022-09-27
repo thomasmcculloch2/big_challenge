@@ -42,11 +42,11 @@ class Submission extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient',
+        'patient_id',
         'title',
         'symptoms',
         'status',
-        'doctor'
+        'doctor_id'
     ];
 
     /**
@@ -54,7 +54,7 @@ class Submission extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'patient');
+        return $this->belongsTo(User::class, 'patient_id');
     }
 
     /**
@@ -62,6 +62,6 @@ class Submission extends Model
      */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'doctor');
+        return $this->belongsTo(User::class, 'doctor_id');
     }
 }

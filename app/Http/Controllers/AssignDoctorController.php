@@ -14,7 +14,7 @@ class AssignDoctorController extends Controller
     {
         $user = Auth::user();
         if (!$submission->doctor) {
-            $submission->doctor = $user->id;
+            $submission->doctor_id = $user->id;
             $submission->save();
             return response()->json(['message' => 'Doctor associated successfully'], 201);
         }

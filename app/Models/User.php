@@ -102,7 +102,7 @@ class User extends Authenticatable
      */
     public function doctor(): HasOne
     {
-        return $this->hasOne(Submission::class, 'doctor');
+        return $this->hasOne(Submission::class, 'doctor_id');
     }
 
     /**
@@ -110,6 +110,6 @@ class User extends Authenticatable
      */
     public function patient(): HasOne
     {
-        return $this->hasOne(Submission::class, 'patient');
+        return $this->hasOne(Submission::class, 'patient_id');
     }
 }

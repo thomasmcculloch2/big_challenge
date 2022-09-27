@@ -25,14 +25,14 @@ class SubmissionFactory extends Factory
             'title' => fake()->name(),
             'symptoms' => fake()->paragraph(1) ,
             'status' => SubmissionStatus::PENDING,
-            'patient' => User::factory()->patient()->create()
+            'patient_id' => User::factory()->patient()->create()
         ];
     }
 
     public function withDoctor() {
         return $this->afterCreating(function(Submission $submission) {
             $doctor = User::factory()->doctor()->create();
-            $submission->doctor = $doctor->id;
+            $submission->doctor_id = $doctor->id;
             $submission->save();
         });
     }

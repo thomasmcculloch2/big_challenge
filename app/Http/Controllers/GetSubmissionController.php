@@ -19,7 +19,7 @@ class GetSubmissionController
             $submission = Submission::all();
             return response()->json(SubmissionResource::collection($submission), 201);
         }
-            $submission = Submission::query()->where('patient', $user->id)->get();
+            $submission = Submission::query()->where('patient_id', $user->id)->get();
             return response()->json(SubmissionResource::collection($submission), 201);
     }
 }
