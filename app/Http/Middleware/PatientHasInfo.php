@@ -31,6 +31,8 @@ class PatientHasInfo
             return response(['message' => 'Must complete the extra information to create a submission.'], 403);
         }
 
+
+
         return $next($request);
     }
 }

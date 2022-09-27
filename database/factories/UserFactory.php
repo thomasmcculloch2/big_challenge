@@ -43,14 +43,8 @@ class UserFactory extends Factory
         });
     }
 
-    public function patientWithInInformation() {
+    public function WithInInformation() {
         return $this->afterCreating(function(User $user) {
-            try {
-                Role::create(['name' => Rol::PATIENT]);
-            } catch (RoleAlreadyExists $e) {
-                // DO nothing
-            }
-            $user->assignRole(Rol::PATIENT);
             Information::factory()->create([
                 'patient_id' => $user->id,
             ]);

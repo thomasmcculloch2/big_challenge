@@ -12,7 +12,7 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionSuccessful(): void
     {
-        $user = User::factory()->patientWithInInformation()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -47,7 +47,7 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->patientWithInInformation()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
@@ -59,7 +59,7 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->patientWithInInformation()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
 
         $response = $this->postJson(route('submission.new'), [
