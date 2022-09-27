@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Submission
@@ -45,5 +46,22 @@ class Submission extends Model
         'title',
         'symptoms',
         'status',
+        'doctor',
     ];
+
+    /**
+     * @return BelongsTo<User, Submission>
+     */
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'patient');
+    }
+
+    /**
+     * @return BelongsTo<User, Submission>
+     */
+    public function doctor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'doctor');
+    }
 }

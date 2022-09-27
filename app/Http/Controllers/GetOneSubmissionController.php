@@ -10,8 +10,6 @@ use App\Models\Constants\Rol;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use App\Policies\UserPolicy;
-use Illuminate\Support\Facades\Gate;
 
 class GetOneSubmissionController
 {
