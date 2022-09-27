@@ -6,10 +6,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientInfoRequest;
 use App\Http\Resources\PatientInfoResource;
-use App\Models\PatientsInfos;
+use App\Models\Information;
 use Illuminate\Http\JsonResponse;
 
-class PatientInfoController extends Controller
+class InformationController extends Controller
 {
     public function __invoke(PatientInfoRequest $request): JsonResponse
     {
@@ -17,9 +17,9 @@ class PatientInfoController extends Controller
         /* @var User $user */
         $user = $request->user();
 
-        $patient = PatientsInfos::where('patient_id', $user->id)->first();
+        $patient = Information::where('patient_id', $user->id)->first();
         if (!$patient) {
-            $patient_info = PatientsInfos::create([
+            $patientInfo = Information::create([
                 'phone' => $data['phone'],
                 'weight' => $data['weight'] ,
                 'height' => $data['height'],
@@ -29,7 +29,7 @@ class PatientInfoController extends Controller
 
             $response = [
                 'message' => 'Patient info created successfully',
-                'info' => PatientInfoResource::make($patient_info),
+                'info' => PatientInfoResource::make($patientInfo),
             ];
 
             return response()->json($response, 201);

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class PatientInfoTest extends TestCase
+class InformationTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,7 +19,7 @@ class PatientInfoTest extends TestCase
             'phone' => '098456377', 'weight' => '79', 'height' => '188', 'info' => 'Problems you might have'
         ])->assertSuccessful();
 
-        $this->assertDatabaseHas('patients_infos', ['patient_id' => $user->id]);
+        $this->assertDatabaseHas('information', ['patient_id' => $user->id]);
     }
 
     public function testCreatePatientInfoAsDoctor(): void
@@ -32,7 +32,7 @@ class PatientInfoTest extends TestCase
         ])->assertForbidden();
     }
 
-    public function testCreatePatientInfoWithouPhone(): void
+    public function testCreatePatientInfoWithoutPhone(): void
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
@@ -42,7 +42,7 @@ class PatientInfoTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function testCreatePatientInfoWithouWeiht(): void
+    public function testCreatePatientInfoWithoutWeight(): void
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
@@ -52,7 +52,7 @@ class PatientInfoTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function testCreatePatientInfoWithouHeight(): void
+    public function testCreatePatientInfoWithoutHeight(): void
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
@@ -62,7 +62,7 @@ class PatientInfoTest extends TestCase
         ])->assertUnprocessable();
     }
 
-    public function testCreatePatientInfoWithouInfo(): void
+    public function testCreatePatientInfoWithoutInfo(): void
     {
         $user = User::factory()->patient()->create();
         $this->actingAs($user);

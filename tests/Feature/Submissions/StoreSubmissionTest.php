@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Submissions;
 
-use App\Models\PatientsInfos;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,11 +12,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionSuccessful(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'title' => 'Gripe', 'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
@@ -51,11 +47,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
@@ -66,11 +59,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patient()->WithInInformation()->create();
         $this->actingAs($user);
-        PatientsInfos::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'title' => 'Gripe'

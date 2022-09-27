@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Constants\Rol;
+use App\Models\Information;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -39,6 +40,14 @@ class UserFactory extends Factory
                 // DO nothing
             }
             $user->assignRole(Rol::PATIENT);
+        });
+    }
+
+    public function WithInInformation() {
+        return $this->afterCreating(function(User $user) {
+            Information::factory()->create([
+                'patient_id' => $user->id,
+            ]);
         });
     }
 

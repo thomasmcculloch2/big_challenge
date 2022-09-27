@@ -23,7 +23,7 @@ class SubmissionFactory extends Factory
             'title' => fake()->name(),
             'symptoms' => fake()->paragraph(1) ,
             'status' => SubmissionStatus::PENDING,
-            'patient' => User::factory()->create()
+            'patient' => User::factory()->patient()->create()
         ];
     }
 }

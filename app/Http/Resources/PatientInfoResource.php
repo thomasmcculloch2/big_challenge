@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Models\Information;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Information
+ */
 class PatientInfoResource extends JsonResource
 {
     /**
@@ -13,9 +17,9 @@ class PatientInfoResource extends JsonResource
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'phone' => $this->phone,

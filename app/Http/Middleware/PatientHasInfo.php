@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Models\Constants\Rol;
-use App\Models\PatientsInfos;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -21,11 +21,17 @@ class PatientHasInfo
      */
     public function handle(Request $request, Closure $next)
     {
+        /** @var User $user */
         $user = $request->user();
-        $patient = PatientsInfos::where('patient_id', $user->id)->first();
+        $patient = $user->information;
+        if ($user->hasRole(Rol::DOCTOR)) {
+            return response(['message' => 'Only patients can create submissions.'], 403);
+        }
         if (!$patient) {
             return response(['message' => 'Must complete the extra information to create a submission.'], 403);
         }
+
+
 
         return $next($request);
     }

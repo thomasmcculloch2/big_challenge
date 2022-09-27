@@ -3,8 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetSubmissionController;
-use App\Http\Controllers\PatientInfoController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\StoreSubmissionController;
 use App\Http\Middleware\PatientHasInfo;
 use Illuminate\Http\Request;
@@ -32,11 +33,12 @@ Route::post('login', LoginController::class)->name('user.login')->middleware('gu
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
 Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
-    Route::post('info', PatientInfoController::class)->name('patient.info');
+    Route::post('info', InformationController::class)->name('patient.info');
 });
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {
     Route::get('submissions', GetSubmissionController::class)->name('submission.index');
+    Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
 });
 
 Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class]], function() {
