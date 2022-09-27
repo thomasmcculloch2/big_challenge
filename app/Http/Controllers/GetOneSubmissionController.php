@@ -17,10 +17,10 @@ class GetOneSubmissionController
     {
         $user = Auth::user();
         if ($user->hasRole(Rol::PATIENT)) {
-            if($submission->patient == $user->id) {
+            if ($submission->patient == $user->id) {
                 return response()->json(SubmissionResource::make($submission), 201);
             }
-            return response()->json(['message'=>'Unauthorized'],403);
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
         return response()->json(OneSubmissionResource::make($submission), 201);
     }
