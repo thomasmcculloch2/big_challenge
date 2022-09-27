@@ -46,7 +46,7 @@ class Submission extends Model
         'title',
         'symptoms',
         'status',
-        'doctor',
+        'doctor'
     ];
 
     /**
