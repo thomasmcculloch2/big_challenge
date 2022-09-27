@@ -13,11 +13,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionSuccessful(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patientWithInInformation()->create();
         $this->actingAs($user);
-        Information::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'title' => 'Gripe', 'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
@@ -51,11 +48,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutTitle(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patientWithInInformation()->create();
         $this->actingAs($user);
-        Information::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'symptoms' => 'Dolor de cabeza, mareos, nauseas, etc'
@@ -66,11 +60,8 @@ class StoreSubmissionTest extends TestCase
 
     public function testNewSubmissionWithoutSymptoms(): void
     {
-        $user = User::factory()->patient()->create();
+        $user = User::factory()->patientWithInInformation()->create();
         $this->actingAs($user);
-        Information::factory()->create([
-            'patient_id' => $user->id,
-        ]);
 
         $response = $this->postJson(route('submission.new'), [
             'title' => 'Gripe'

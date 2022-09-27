@@ -16,9 +16,11 @@ class GetOneSubmissionTest extends TestCase
         $user = User::factory()->patient()->create();
         $this->actingAs($user);
 
-        $submission = Submission::factory()->create();
+        $submission = Submission::factory()->create([
+            'patient' => $user->id
+        ]);
 
-        $response = $this->getJson(route('submission.index', "$submission->id"));
+        $response = $this->getJson(route('submission.show', "$submission->id"));
         $response->assertSuccessful();
     }
 
@@ -29,7 +31,27 @@ class GetOneSubmissionTest extends TestCase
 
         $submission = Submission::factory()->create();
 
-        $response = $this->getJson(route('submission.index', "$submission->id"));
+        $response = $this->getJson(route('submission.show', "$submission->id"));
         $response->assertSuccessful();
+    }
+
+    public function testGetSubmissionAsPatientNotCreatedByHim(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
+
+        $submission = Submission::factory()->create();
+
+        $response = $this->getJson(route('submission.show', "$submission->id"));
+        $response->assertForbidden();
+    }
+
+    public function testGetSubmissionAsPatientThatNotExists(): void
+    {
+        $user = User::factory()->patient()->create();
+        $this->actingAs($user);
+
+        $response = $this->getJson(route('submission.show', 3));
+        $response->assertNotFound();
     }
 }

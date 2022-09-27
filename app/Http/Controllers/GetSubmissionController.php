@@ -15,9 +15,7 @@ class GetSubmissionController
     public function __invoke(): JsonResponse
     {
         $user = Auth::user();
-        $roles = $user->getRoleNames();
-
-        if ($roles->contains(Rol::DOCTOR)) {
+        if ($user->hasRole(Rol::DOCTOR)) {
             $submission = Submission::all();
             return response()->json(SubmissionResource::collection($submission), 201);
         }
