@@ -100,7 +100,7 @@ class User extends Authenticatable
     /**
      * @return HasOne<Submission>
      */
-    public function doctorSubmission(): HasOne
+    public function doctor(): HasOne
     {
         return $this->hasOne(Submission::class, 'doctor');
     }
@@ -108,7 +108,7 @@ class User extends Authenticatable
     /**
      * @return HasOne<Submission>
      */
-    public function patientSubmission(): HasOne
+    public function patient(): HasOne
     {
         return $this->hasOne(Submission::class, 'patient');
     }
