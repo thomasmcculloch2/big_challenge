@@ -17,7 +17,7 @@ class GetOneSubmissionTest extends TestCase
         $this->actingAs($user);
 
         $submission = Submission::factory()->create([
-            'patient' => $user->id
+            'patient_id' => $user->id
         ]);
 
         $response = $this->getJson(route('submission.show', "$submission->id"));

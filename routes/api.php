@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignDoctorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -34,6 +35,10 @@ Route::post('logout', LogoutController::class)->name('user.logout')->middleware(
 
 Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
     Route::post('info', InformationController::class)->name('patient.info');
+});
+
+Route::group(['middleware' => ['auth:sanctum','role:doctor']], function() {
+    Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
 });
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {

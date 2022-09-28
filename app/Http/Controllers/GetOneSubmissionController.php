@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OneSubmissionResource;
-use App\Http\Resources\SubmissionResource;
 use App\Models\Constants\Rol;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use App\Policies\UserPolicy;
-use Illuminate\Support\Facades\Gate;
 
 class GetOneSubmissionController
 {
@@ -19,8 +16,8 @@ class GetOneSubmissionController
     {
         $user = Auth::user();
         if ($user->hasRole(Rol::PATIENT)) {
-            if ($submission->patient == $user->id) {
-                return response()->json(SubmissionResource::make($submission), 201);
+            if ($submission->patient_id == $user->id) {
+                return response()->json(OneSubmissionResource::make($submission), 201);
             }
             return response()->json(['message' => 'Unauthorized'], 403);
         }

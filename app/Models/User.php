@@ -96,4 +96,20 @@ class User extends Authenticatable
     {
         return $this->hasOne(Information::class, 'patient_id');
     }
+
+    /**
+     * @return HasOne<Submission>
+     */
+    public function doctor(): HasOne
+    {
+        return $this->hasOne(Submission::class, 'doctor_id');
+    }
+
+    /**
+     * @return HasOne<Submission>
+     */
+    public function patient(): HasOne
+    {
+        return $this->hasOne(Submission::class, 'patient_id');
+    }
 }

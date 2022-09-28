@@ -26,7 +26,7 @@ class SubmissionResource extends JsonResource
             'doctor' => $this->doctor,
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient_id' => $this->patient,
+            'patient_id' => $this->patient_id,
         ];
     }
 }

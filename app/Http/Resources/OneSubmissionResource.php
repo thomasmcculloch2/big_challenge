@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Resources;
 
 use App\Models\Submission;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -27,7 +26,7 @@ class OneSubmissionResource extends JsonResource
             'doctor' => $this->doctor,
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient' => UserResource::make(User::find($this->patient)),
+            'patient' => UserResource::make($this->patient),
         ];
     }
 }

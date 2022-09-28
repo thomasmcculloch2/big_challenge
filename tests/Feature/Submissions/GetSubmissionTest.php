@@ -20,8 +20,8 @@ class GetSubmissionTest extends TestCase
         $submission = Submission::factory()
             ->count(10)
             ->state(new Sequence(
-                ['patient' => $user->id],
-                ['patient' => User::factory()->patient()->create()],
+                ['patient_id' => $user->id],
+                ['patient_id' => User::factory()->patient()->create()],
             ))
             ->create();
 
@@ -38,8 +38,8 @@ class GetSubmissionTest extends TestCase
         $submission = Submission::factory()
             ->count(10)
             ->state(new Sequence(
-                ['patient' => User::factory()->patient()->create()],
-                ['patient' => User::factory()->patient()->create()],
+                ['patient_id' => User::factory()->patient()->create()],
+                ['patient_id' => User::factory()->patient()->create()],
             ))
             ->create();
 

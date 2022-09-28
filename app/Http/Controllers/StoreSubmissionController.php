@@ -21,7 +21,8 @@ class StoreSubmissionController
            'title' => $data['title'],
            'symptoms' => $data['symptoms'] ,
             'status' => SubmissionStatus::PENDING,
-            'patient' => $user->id
+            'patient_id' => $user->id,
+            'doctor_id' => null
         ]);
 
         $response = [

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Submission
@@ -41,9 +42,26 @@ class Submission extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient',
+        'patient_id',
         'title',
         'symptoms',
         'status',
+        'doctor_id'
     ];
+
+    /**
+     * @return BelongsTo<User, Submission>
+     */
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'patient_id');
+    }
+
+    /**
+     * @return BelongsTo<User, Submission>
+     */
+    public function doctor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'doctor_id');
+    }
 }
