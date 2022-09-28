@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DigitalOceanStoreRequest;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 

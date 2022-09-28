@@ -30,6 +30,7 @@ class DownloadAttachmentRequest extends FormRequest
     {
         throw new AuthorizationException('You are not authorize to download this attachment');
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
