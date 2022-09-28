@@ -36,4 +36,14 @@ class SubmissionFactory extends Factory
             $submission->save();
         });
     }
+
+    public function withDoctorAndPatient() {
+        return $this->afterCreating(function(Submission $submission) {
+            $doctor = User::factory()->doctor()->create();
+            $patient = User::factory()->patient()->create();
+            $submission->doctor_id = $doctor->id;
+            $submission->patient_id = $patient->id;
+            $submission->save();
+        });
+    }
 }

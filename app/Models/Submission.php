@@ -36,6 +36,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Submission whereUpdatedAt($value)
  *
  * @mixin \Eloquent
+ *
+ * @property int|null $doctor_id
+ * @property int      $patient_id
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Submission whereDoctorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Submission wherePatientId($value)
  */
 class Submission extends Model
 {
