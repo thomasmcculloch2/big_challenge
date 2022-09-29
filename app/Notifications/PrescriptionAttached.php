@@ -51,7 +51,7 @@ class PrescriptionAttached extends Notification
         return (new MailMessage)
                     ->line('Hola' . $this->patient->name . ',el doctor' . $this->doctor->name . 'te ha adjuntado una prescription a la submission' . $this->submission->title)
                     ->action('Ver ahora', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Gracias por usar nuestra aplicacion!');
     }
 
     /**

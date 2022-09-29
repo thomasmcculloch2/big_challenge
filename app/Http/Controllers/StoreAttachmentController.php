@@ -26,7 +26,7 @@ class StoreAttachmentController extends Controller
         $submission->prescription = $path;
         $submission->save();
         $doctor = $request->user();
-        $patient = User::find($submission->patient_id);
+        $patient = $submission->patient;
         $patient->notify(new PrescriptionAttached($submission,$patient,$doctor));
         return response()->json(['message' => 'File uploaded'], 200);
     }
