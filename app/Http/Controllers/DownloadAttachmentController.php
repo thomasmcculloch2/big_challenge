@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class DownloadAttachmentController extends Controller
 {
-    public function __invoke(Submission $submission, DownloadAttachmentRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function __invoke(Submission $submission, DownloadAttachmentRequest $request): \Illuminate\Http\JsonResponse
     {
         $file = Storage::get($submission->prescription);
-        return response($file, 200);
+        $response = [
+            'message' => 'Download successful',
+            'file' => $file
+        ];
+        return response()->json($response, 200);
     }
 }
