@@ -13,11 +13,11 @@ class AssignDoctorController extends Controller
     public function __invoke(Submission $submission): JsonResponse
     {
         $user = Auth::user();
-        if (!$submission->doctor) {
-            $submission->doctor_id = $user->id;
-            $submission->save();
-            return response()->json(['message' => 'Doctor associated successfully'], 201);
+        if ($submission->doctor != NULL) {
+            return response()->json(['message' => 'Submission already have a doctor'], 401);
         }
-        return response()->json(['message' => 'Submission already have a doctor'], 401);
+        $submission->doctor_id = $user->id;
+        $submission->save();
+        return response()->json(['message' => 'Doctor associated successfully'], 201);
     }
 }

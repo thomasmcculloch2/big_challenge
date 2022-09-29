@@ -4,30 +4,25 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
-use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PrescriptionAttached extends Notification
+class EmailConfirmation extends Notification
 {
     use Queueable;
 
-    private Submission $submission;
-    private User $patient;
-    private User $doctor;
+    private User $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Submission $submission, User $patient, User $doctor)
+    public function __construct(User $user)
     {
-        $this->submission = $submission;
-        $this->patient = $patient;
-        $this->doctor = $doctor;
+        $this->user = $user;
     }
 
     /**
@@ -52,8 +47,8 @@ class PrescriptionAttached extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage())
-                    ->line('Hola ' . $this->patient->name . ', el doctor ' . $this->doctor->name . ' te ha adjuntado una prescription a la submission ' . $this->submission->title)
-                    ->action('Ver ahora', url('/'))
+                    ->line('Hola ' . $this->user->name . ', por favor clickea el boton de debajo para verificar tu direccion de email.')
+                    ->action('Verificar direccion de email', url('/'))
                     ->line('Gracias por usar nuestra aplicacion!');
     }
 

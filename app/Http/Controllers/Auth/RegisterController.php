@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Constants\Rol;
 use App\Models\User;
+use App\Notifications\EmailConfirmation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,6 +33,8 @@ class RegisterController
         }
 
         $token = $user->createToken('userToken')->plainTextToken;
+
+        $user->notify(new EmailConfirmation($user));
 
         $response = [
             'message' => 'User created successfully',
