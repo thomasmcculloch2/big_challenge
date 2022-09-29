@@ -26,7 +26,7 @@ class StoreAttachmentController extends Controller
         $submission->save();
         $doctor = $request->user();
         $patient = User::find($submission->patient_id);
-        Mail::to($patient->email)->send(new PrescriptionAdded($submission,$patient->email,$patient, $doctor));
+        Mail::to($patient->email)->send(new PrescriptionAdded($submission, $patient, $doctor));
         return response()->json(['message' => 'File uploaded'], 200);
     }
 }

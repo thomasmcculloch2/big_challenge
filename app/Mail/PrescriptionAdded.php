@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use App\Models\Submission;
@@ -11,20 +13,20 @@ use Illuminate\Queue\SerializesModels;
 
 class PrescriptionAdded extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     private Submission $submission;
-    private string $email;
     private User $patient;
     private User $doctor;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Submission $submission, string $email, User $patient, User $doctor)
+    public function __construct(Submission $submission, User $patient, User $doctor)
     {
-        $this->email = $email;
         $this->submission = $submission;
         $this->patient = $patient;
         $this->doctor = $doctor;
