@@ -4,9 +4,11 @@ use App\Http\Controllers\AssignDoctorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DownloadAttachmentController;
 use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetSubmissionController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\StoreAttachmentController;
 use App\Http\Controllers\StoreSubmissionController;
 use App\Http\Middleware\PatientHasInfo;
 use Illuminate\Http\Request;
@@ -39,11 +41,14 @@ Route::group(['middleware' => ['auth:sanctum','role:patient']], function() {
 
 Route::group(['middleware' => ['auth:sanctum','role:doctor']], function() {
     Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
+    Route::post('upload/{submission}',StoreAttachmentController::class)->name('submission.upload');
 });
 
 Route::group(['middleware' => ['auth:sanctum','role:patient|doctor']], function() {
     Route::get('submissions', GetSubmissionController::class)->name('submission.index');
     Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
+    Route::post('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
+
 });
 
 Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class]], function() {
