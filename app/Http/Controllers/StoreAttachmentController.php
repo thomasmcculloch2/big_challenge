@@ -8,6 +8,7 @@ use App\Http\Requests\DigitalOceanStoreRequest;
 use App\Mail\PrescriptionAdded;
 use App\Models\Submission;
 use App\Models\User;
+use App\Notifications\PrescriptionAttached;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,7 @@ class StoreAttachmentController extends Controller
         $submission->save();
         $doctor = $request->user();
         $patient = User::find($submission->patient_id);
-        Mail::to($patient->email)->send(new PrescriptionAdded($submission, $patient, $doctor));
+        $patient->notify(new PrescriptionAttached($submission,$patient,$doctor));
         return response()->json(['message' => 'File uploaded'], 200);
     }
 }
