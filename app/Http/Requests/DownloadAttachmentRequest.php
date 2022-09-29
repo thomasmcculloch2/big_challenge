@@ -26,7 +26,7 @@ class DownloadAttachmentRequest extends FormRequest
         return false;
     }
 
-    protected function failedAuthorization() : AuthorizationException
+    protected function failedAuthorization(): AuthorizationException
     {
         throw new AuthorizationException('You are not authorize to download this attachment');
     }

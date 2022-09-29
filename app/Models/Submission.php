@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * App\Models\Submission
  *
  * @property int                             $id
- * @property int|null                        $doctor
- * @property int                             $patient
+ * @property \App\Models\User                $doctor
+ * @property \App\Models\User                $patient
  * @property string                          $title
  * @property string                          $symptoms
  * @property string                          $status
