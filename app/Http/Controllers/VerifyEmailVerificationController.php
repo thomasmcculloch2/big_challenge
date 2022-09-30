@@ -6,13 +6,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Events\Dispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class VerifyEmailVerificationController extends Controller
 {
+    private Dispatcher $dispatcher;
+
+    public function __construct()
+    {
+        $this->dispatcher = new Dispatcher();
+    }
+
     public function __invoke(EmailVerificationRequest $request): JsonResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
@@ -20,9 +26,7 @@ class VerifyEmailVerificationController extends Controller
         }
 
         if ($request->user()->markEmailAsVerified()) {
-            //event(new Verified($request->user()));
-            $dispatcher = new EventDispatcher();
-            $dispatcher->dispatch(new Verified($request->user()));
+            $this->dispatcher->dispatch(new Verified($request->user()));
         }
 
         return response()->json(['message' => 'Email has been verified']);
