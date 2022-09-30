@@ -14,9 +14,9 @@ class VerifyEmailVerificationController extends Controller
 {
     private Dispatcher $dispatcher;
 
-    public function __construct()
+    public function __construct(Dispatcher $dispatcher)
     {
-        $this->dispatcher = new Dispatcher();
+        $this->dispatcher = $dispatcher;
     }
 
     public function __invoke(EmailVerificationRequest $request): JsonResponse
