@@ -22,8 +22,9 @@ class SubmissionResource extends JsonResource
     public function toArray($request): array
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
-            'doctor' => $this->doctor,
+            'doctor' => UserResource::make($this->doctor),
             'symptoms' => $this->symptoms,
             'status' => $this->status,
             'patient_id' => $this->patient_id,
