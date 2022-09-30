@@ -13,7 +13,7 @@ class AssignDoctorController extends Controller
     public function __invoke(Submission $submission): JsonResponse
     {
         $user = Auth::user();
-        if ($submission->doctor != NULL) {
+        if ($submission->doctor != null) {
             return response()->json(['message' => 'Submission already have a doctor'], 401);
         }
         $submission->doctor_id = $user->id;
