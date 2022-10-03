@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Constants\Rol;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -101,18 +103,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @return HasOne<Submission>
+     * @return HasMany<Submission>
      */
-    public function doctor(): HasOne
+    public function submissions(): HasMany
     {
-        return $this->hasOne(Submission::class, 'doctor_id');
-    }
-
-    /**
-     * @return HasOne<Submission>
-     */
-    public function patient(): HasOne
-    {
-        return $this->hasOne(Submission::class, 'patient_id');
+        $foreingId = $this->hasRole(Rol::PATIENT) ? 'patient_id' : 'doctor_id';
+        return $this->hasMany(Submission::class, $foreingId);
     }
 }

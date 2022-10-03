@@ -8,16 +8,16 @@ use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AssignDoctorController extends Controller
+class AssignDoctorController
 {
     public function __invoke(Submission $submission): JsonResponse
     {
-        $user = Auth::user();
-        if (!$submission->doctor) {
-            $submission->doctor_id = $user->id;
-            $submission->save();
-            return response()->json(['message' => 'Doctor associated successfully'], 201);
+        if ($submission->doctor) {
+            return response()->json(['message' => 'Submission already have a doctor'], 401);
         }
-        return response()->json(['message' => 'Submission already have a doctor'], 401);
+        $submission->update([
+            'doctor_id' => Auth::id()
+        ]);
+        return response()->json(['message' => 'Doctor associated successfully'], 201);
     }
 }

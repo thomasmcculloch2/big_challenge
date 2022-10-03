@@ -8,11 +8,20 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Constants\Rol;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController
 {
+    private Dispatcher $dispatcher;
+
+    public function __construct(Dispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     public function __invoke(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -32,7 +41,7 @@ class RegisterController
         }
 
         $token = $user->createToken('userToken')->plainTextToken;
-
+        $this->dispatcher->dispatch(new Registered($user));
         $response = [
             'message' => 'User created successfully',
             'user' => UserResource::make($user),

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * App\Models\Submission
  *
  * @property int                             $id
- * @property \App\Models\User                $doctor
+ * @property \App\Models\User|null           $doctor
  * @property \App\Models\User                $patient
  * @property string                          $title
  * @property string                          $symptoms

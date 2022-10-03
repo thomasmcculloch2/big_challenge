@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -22,7 +23,7 @@ class PrescriptionAttached extends Notification
      *
      * @return void
      */
-    public function __construct (Submission $submission, User $patient, User $doctor)
+    public function __construct(Submission $submission, User $patient, User $doctor)
     {
         $this->submission = $submission;
         $this->patient = $patient;
@@ -32,7 +33,8 @@ class PrescriptionAttached extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -43,12 +45,13 @@ class PrescriptionAttached extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->line('Hola ' . $this->patient->name . ', el doctor ' . $this->doctor->name . ' te ha adjuntado una prescription a la submission ' . $this->submission->title)
                     ->action('Ver ahora', url('/'))
                     ->line('Gracias por usar nuestra aplicacion!');
@@ -57,7 +60,8 @@ class PrescriptionAttached extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
