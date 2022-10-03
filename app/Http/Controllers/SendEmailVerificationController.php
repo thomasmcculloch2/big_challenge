@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SendEmailVerificationController extends Controller
+class SendEmailVerificationController
 {
     public function __invoke(Request $request): JsonResponse
     {

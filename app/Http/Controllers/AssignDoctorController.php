@@ -8,7 +8,7 @@ use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AssignDoctorController extends Controller
+class AssignDoctorController
 {
     public function __invoke(Submission $submission): JsonResponse
     {

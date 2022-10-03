@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
 
-class VerifyEmailVerificationController extends Controller
+class VerifyEmailVerificationController
 {
     private Dispatcher $dispatcher;
 
