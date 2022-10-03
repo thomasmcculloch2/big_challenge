@@ -6,6 +6,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Constants\Rol;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -109,5 +110,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $foreingId = $this->hasRole(Rol::PATIENT) ? 'patient_id' : 'doctor_id';
         return $this->hasMany(Submission::class, $foreingId);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification('http://localhost/api/reset-password?token=' . $token));
     }
 }

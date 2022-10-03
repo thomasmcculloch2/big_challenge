@@ -8,6 +8,8 @@ use App\Http\Controllers\DownloadAttachmentController;
 use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetSubmissionController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\SendEmailNewPasswordController;
 use App\Http\Controllers\SendEmailVerificationController;
 use App\Http\Controllers\StoreAttachmentController;
 use App\Http\Controllers\StoreSubmissionController;
@@ -59,3 +61,6 @@ Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class,'verified']]
 
 Route::post('email/verification-notification', SendEmailVerificationController::class)->middleware('auth:sanctum');
 Route::get('verify-email/{id}/{hash}', VerifyEmailVerificationController::class)->name('verification.verify')->middleware('auth:sanctum');
+
+Route::post('forgot-password', SendEmailNewPasswordController::class);
+Route::post('reset-password', NewPasswordController::class);
