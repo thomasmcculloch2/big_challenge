@@ -24,7 +24,7 @@ class NewPasswordController
     public function __invoke(NewPasswordRequest $request): JsonResponse
     {
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('email', 'password', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
