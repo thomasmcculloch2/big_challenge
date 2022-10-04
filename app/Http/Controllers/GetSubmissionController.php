@@ -16,9 +16,8 @@ class GetSubmissionController
     public function __invoke(): JsonResponse
     {
         $user = Auth::user();
-        //sail dd($user->submission);
         if ($user->hasRole(Rol::DOCTOR)) {
-            $submission = Submission::query()->where('status', SubmissionStatus::PENDING)->orWhere('doctor_id',$user->id)->get();
+            $submission = Submission::query()->where('status', SubmissionStatus::PENDING)->orWhere('doctor_id', $user->id)->get();
             return response()->json(SubmissionResource::collection($submission), 201);
         }
             $submission = $user->submissions;
