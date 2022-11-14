@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DownloadAttachmentController;
+use App\Http\Controllers\FinishSubmissionController;
 use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetSubmissionController;
 use App\Http\Controllers\InformationController;
@@ -39,28 +40,23 @@ Route::post('login', LoginController::class)->name('user.login')->middleware('gu
 
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
-Route::group(['middleware' => ['auth:sanctum','role:patient','verified']], function() {
-    Route::post('info', InformationController::class)->name('patient.info');
-});
-
-Route::group(['middleware' => ['auth:sanctum','role:doctor','verified']], function() {
-    Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
-    Route::post('upload/{submission}',StoreAttachmentController::class)->name('submission.upload');
-});
-
-Route::group(['middleware' => ['auth:sanctum','role:patient|doctor','verified']], function() {
-    Route::get('submissions', GetSubmissionController::class)->name('submission.index');
-    Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
-    Route::post('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
-
-});
-
-Route::group(['middleware' => ['auth:sanctum',PatientHasInfo::class,'verified']], function() {
-    Route::post('submissions', StoreSubmissionController::class)->name('submission.new');
+Route::group(['middleware' => ['auth:sanctum'/*,'verified'*/]], function() {
+    Route::group(['middleware' => ['role:doctor']], function() {
+        Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
+        Route::post('upload/{submission}',StoreAttachmentController::class)->name('submission.upload');
+        Route::post('finish/{submission}',FinishSubmissionController::class)->name('submission.finish');
+    });
+    Route::group(['middleware' => ['role:patient|doctor']], function() {
+        Route::get('submissions', GetSubmissionController::class)->name('submission.index');
+        Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
+        Route::post('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
+    });
+    Route::post('submissions', StoreSubmissionController::class)->name('submission.new')->middleware(PatientHasInfo::class);
+    Route::post('info', InformationController::class)->name('patient.info')->middleware('role:patient');
 });
 
 Route::post('email/verification-notification', SendEmailVerificationController::class)->middleware('auth:sanctum');
-Route::get('verify-email/{id}/{hash}', VerifyEmailVerificationController::class)->name('verification.verify')->middleware('auth:sanctum');
+Route::get('verify-email/{id}/{hash}', VerifyEmailVerificationController::class)->name('verification.verify');
 
 Route::post('forgot-password', SendEmailNewPasswordController::class);
 Route::post('reset-password', NewPasswordController::class);

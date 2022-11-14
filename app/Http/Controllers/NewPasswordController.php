@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewPasswordRequest;
 use Hash;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Password;
@@ -21,6 +20,7 @@ class NewPasswordController
     {
         $this->dispatcher = $dispatcher;
     }
+
     public function __invoke(NewPasswordRequest $request): JsonResponse
     {
         $status = Password::reset(
