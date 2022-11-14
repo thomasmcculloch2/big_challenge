@@ -40,7 +40,7 @@ Route::post('login', LoginController::class)->name('user.login')->middleware('gu
 
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
-Route::group(['middleware' => ['auth:sanctum','verified']], function() {
+Route::group(['middleware' => ['auth:sanctum'/*,'verified'*/]], function() {
     Route::group(['middleware' => ['role:doctor']], function() {
         Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
         Route::post('upload/{submission}',StoreAttachmentController::class)->name('submission.upload');
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function() {
 });
 
 Route::post('email/verification-notification', SendEmailVerificationController::class)->middleware('auth:sanctum');
-Route::get('verify-email/{id}/{hash}', VerifyEmailVerificationController::class)->name('verification.verify')->middleware('auth:sanctum');
+Route::get('verify-email/{id}/{hash}', VerifyEmailVerificationController::class)->name('verification.verify');
 
 Route::post('forgot-password', SendEmailNewPasswordController::class);
 Route::post('reset-password', NewPasswordController::class);
