@@ -22,11 +22,13 @@ class OneSubmissionResource extends JsonResource
     public function toArray($request): array
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
-            'doctor' => $this->doctor,
+            'doctor' => DoctorResource::make($this->doctor),
             'symptoms' => $this->symptoms,
             'status' => $this->status,
             'patient' => UserResource::make($this->patient),
+            'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }
 }
