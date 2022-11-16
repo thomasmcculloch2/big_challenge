@@ -27,7 +27,7 @@ class SubmissionResource extends JsonResource
             'doctor' => UserResource::make($this->doctor),
             'symptoms' => $this->symptoms,
             'status' => $this->status,
-            'patient_name' => $this->patient->name,
+            'patient' => UserResource::make($this->patient),
             'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }

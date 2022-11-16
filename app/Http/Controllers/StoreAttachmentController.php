@@ -17,7 +17,7 @@ class StoreAttachmentController extends Controller
     {
         $file = $request->file('uploadedFile');
         $name = (string) Str::uuid();
-        $fileName = $name . '.txt';
+        $fileName = $name . '.' . $file->getMimeType();
         $folder = config('filesystems.disks.do.folder');
         $path = Storage::putFileAs($folder, $file, $fileName, 'public');
         $submission->prescription = $path;

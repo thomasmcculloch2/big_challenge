@@ -11,15 +11,15 @@ use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class GetSubmissionController
+class GetMySubmissionsController
 {
     public function __invoke(): JsonResponse
     {
         $user = Auth::user();
-        if ($user->hasRole(Rol::DOCTOR)) {
-            $submission = Submission::query()->where('status', SubmissionStatus::PENDING)->orWhere('doctor_id', $user->id)->get();
-            return response()->json(SubmissionResource::collection($submission), 201);
-        }
+//        if ($user->hasRole(Rol::DOCTOR)) {
+//            $submission = Submission::query()->where('status', SubmissionStatus::IN_PROGRESS)->orWhere('status', SubmissionStatus::DONE)->get();
+//            return response()->json(SubmissionResource::collection($submission), 201);
+//        }
             $submission = $user->submissions;
             return response()->json(SubmissionResource::collection($submission), 201);
     }

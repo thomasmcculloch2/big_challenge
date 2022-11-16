@@ -37,7 +37,7 @@ class DigitalOceanStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'uploadedFile' => 'required',
+            'uploadedFile' => ['required','file','mimes:txt'],
         ];
     }
 }

@@ -25,7 +25,7 @@ class GetSubmissionTest extends TestCase
             ))
             ->create();
 
-        $response = $this->getJson(route('submission.index'));
+        $response = $this->getJson(route('my-submissions.index'));
         $response->assertSuccessful()
             ->assertJsonCount(5);
     }
@@ -43,13 +43,13 @@ class GetSubmissionTest extends TestCase
             ))
             ->create();
 
-        $response = $this->getJson(route('submission.index'));
+        $response = $this->getJson(route('submissions.index'));
         $response->assertSuccessful()
             ->assertJsonCount(10);
     }
 
     public function testGetSubmissionNotLogged(): void
     {
-        $response = $this->getJson(route('submission.index'))->assertUnauthorized();
+        $response = $this->getJson(route('submissions.index'))->assertUnauthorized();
     }
 }
