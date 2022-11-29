@@ -16,7 +16,7 @@ class GetMySubmissionsController
     public function __invoke(): JsonResponse
     {
         $user = Auth::user();
-        $submission = $user->submissions;
-        return response()->json(SubmissionResource::collection($submission));
+        $submissions = $user->submissions()->paginate();
+        return response()->json(SubmissionResource::collection($submissions));
     }
 }
