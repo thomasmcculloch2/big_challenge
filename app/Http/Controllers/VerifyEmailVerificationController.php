@@ -19,17 +19,16 @@ class VerifyEmailVerificationController
         $this->dispatcher = $dispatcher;
     }
 
-    public function __invoke(string $userId, string $hashedEmail, GetUserEmailVerificationAction $action): JsonResponse
+    public function __invoke(string $userId, string $hashedEmail, GetUserEmailVerificationAction $action)
     {
         $user = $action->handle($userId, $hashedEmail);
         if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email already verified']);
+            return redirect('http://localhost:3000/email-already-verified');
         }
 
         if ($user->markEmailAsVerified()) {
             $this->dispatcher->dispatch(new Verified($user));
         }
-
-        return response()->json(['message' => 'Email has been verified']);
+        return redirect('http://localhost:3000/email-verified');
     }
 }
