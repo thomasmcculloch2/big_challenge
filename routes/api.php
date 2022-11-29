@@ -9,8 +9,10 @@ use App\Http\Controllers\FinishSubmissionController;
 use App\Http\Controllers\GetMySubmissionsController;
 use App\Http\Controllers\GetOneSubmissionController;
 use App\Http\Controllers\GetPendingSubmissionsController;
+use App\Http\Controllers\GetUserController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\PreviewAttachmentController;
 use App\Http\Controllers\SendEmailNewPasswordController;
 use App\Http\Controllers\SendEmailVerificationController;
 use App\Http\Controllers\StoreAttachmentController;
@@ -50,8 +52,11 @@ Route::group(['middleware' => ['auth:sanctum'/*,'verified'*/]], function() {
     });
     Route::group(['middleware' => ['role:patient|doctor']], function() {
         Route::get('my-submissions', GetMySubmissionsController::class)->name('my-submissions.index');
+        Route::get('user', GetUserController::class)->name('user.index');
         Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
-        Route::post('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
+        Route::get('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
+        Route::post('preview/{submission}',PreviewAttachmentController::class)->name('submission.preview');
+
     });
     Route::post('submissions', StoreSubmissionController::class)->name('submission.new')->middleware(PatientHasInfo::class);
     Route::post('info', InformationController::class)->name('patient.info')->middleware('role:patient');
