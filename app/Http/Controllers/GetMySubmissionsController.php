@@ -17,6 +17,6 @@ class GetMySubmissionsController
     {
         $user = Auth::user();
         $submissions = $user->submissions()->paginate();
-        return response()->json(SubmissionResource::collection($submissions));
+        return response()->json(SubmissionResource::collection($submissions)->response()->getData(true));
     }
 }

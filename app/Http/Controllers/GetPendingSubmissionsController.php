@@ -16,6 +16,6 @@ class GetPendingSubmissionsController
     public function __invoke(): JsonResponse
     {
         $submissions = Submission::query()->where('status', SubmissionStatus::PENDING)->paginate();
-        return response()->json(SubmissionResource::collection($submissions));
+        return response()->json(SubmissionResource::collection($submissions)->response()->getData(true));
     }
 }
