@@ -10,13 +10,18 @@ use App\Models\Constants\SubmissionStatus;
 use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class GetMySubmissionsController
 {
-    public function __invoke(): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
-        $user = Auth::user();
-        $submissions = $user->submissions()->paginate();
+        $user = $request->user();
+        if ($request->status) {
+            $submissions = $user->submissions()->where('status',$request->status)->paginate();
+        } else {
+            $submissions = $user->submissions()->paginate();
+        }
         return response()->json(SubmissionResource::collection($submissions)->response()->getData(true));
     }
 }

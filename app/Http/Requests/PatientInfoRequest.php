@@ -16,7 +16,7 @@ class PatientInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => ['required','numeric'],
+            'phone' => ['required','string'],
             'weight' => ['required','numeric'],
             'height' => ['required','numeric'],
             'info' => ['required'],

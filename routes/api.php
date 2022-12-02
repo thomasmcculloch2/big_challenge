@@ -43,7 +43,7 @@ Route::post('login', LoginController::class)->name('user.login')->middleware('gu
 
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
-Route::group(['middleware' => ['auth:sanctum'/*,'verified'*/]], function() {
+Route::group(['middleware' => ['auth:sanctum',/*'verified'*/]], function() {
     Route::group(['middleware' => ['role:doctor']], function() {
         Route::post('submissions/{submission}/assignments', AssignDoctorController::class)->name('doctor.assign');
         Route::post('upload/{submission}',StoreAttachmentController::class)->name('submission.upload');
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth:sanctum'/*,'verified'*/]], function() {
         Route::get('submissions', GetPendingSubmissionsController::class)->name('submissions.index');
     });
     Route::group(['middleware' => ['role:patient|doctor']], function() {
-        Route::get('my-submissions', GetMySubmissionsController::class)->name('my-submissions.index');
+        Route::get('my-submissions/{status?}', GetMySubmissionsController::class)->name('my-submissions.index');
         Route::get('user', GetUserController::class)->name('user.index');
         Route::get('submissions/{submission}', GetOneSubmissionController::class)->name('submission.show');
         Route::get('download/{submission}',DownloadAttachmentController::class)->name('submission.download');
