@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', RegisterController::class)->name('user.register')->middleware('guest');
 
-Route::post('login', LoginController::class)->name('user.login')->middleware('guest');
+Route::post('login', LoginController::class)->name('user.login')->middleware(['guest','verified']);
 
 Route::post('logout', LogoutController::class)->name('user.logout')->middleware('auth:sanctum');
 
