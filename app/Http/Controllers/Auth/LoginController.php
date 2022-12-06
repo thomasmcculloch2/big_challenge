@@ -21,6 +21,12 @@ class LoginController
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return response()->json(['message' => 'Invalid Credentials'], 401);
         }
+
+        if($user->email_verified_at === null) {
+            return response()->json([
+                'message' => 'Please verify your email before logging in'
+            ], 401);
+        }
         $token = $user->createToken('userToken')->plainTextToken;
         $response = [
             'message' => 'Login successful',
