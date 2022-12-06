@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'id' => $this->id,
+            'email_verified_at' => $this->email_verified_at,
             'info' => PatientInfoResource::make($this->information),
             'roles' => RoleResource::collection($this->roles),
         ];
